@@ -1,20 +1,39 @@
 {
-  "title": "Desktop M6 paywall — Tart E2E",
-  "doing_now": "Tart hard gate + Stripe unlock E2E",
-  "next_up": "Complete Stripe unlock path, then capture RESULT",
-  "updated_at": "2026-09-19T17:29:56Z",
-  "machine": "cursor-cloud",
+  "title": "Desktop M6 paywall \u2014 Tart E2E",
+  "doing_now": "Hard gate + Stripe unlock E2E (GB dev key)",
+  "next_up": "Rewrite RESULT.md PASS/FAIL",
+  "updated_at": "2026-09-19T17:31:40Z",
+  "machine": "david-mac-vm-spd / spd-ui-worker",
   "agent_url": "https://cursor.com/agents/bc-f272e668-3218-5bd8-8733-a3d79e0f8327",
   "branch": "cursor/desktop-m6-paywall-cc24",
-  "tickets": ["VPS-45858"],
-  "checklist": [
-    { "label": "Build / deps", "state": "done" },
-    { "label": "Launch desktop app", "state": "done" },
-    { "label": "Sign in", "state": "done" },
-    { "label": "GrowthBook key", "state": "done" },
-    { "label": "Tart hard gate", "state": "doing" },
-    { "label": "Stripe unlock E2E", "state": "todo" },
-    { "label": "RESULT capture", "state": "todo" }
+  "tickets": [
+    "VPS-45858"
   ],
-  "notes": "Follow from phone via GitHub Pages (no Tailscale required). No secrets on this site."
+  "checklist": [
+    {
+      "label": "Build / deps / launch",
+      "state": "done"
+    },
+    {
+      "label": "Staging free sign-in (force-signout)",
+      "state": "done"
+    },
+    {
+      "label": "GB PAYWALL ON (dev key)",
+      "state": "done"
+    },
+    {
+      "label": "Hard gate sweep",
+      "state": "doing"
+    },
+    {
+      "label": "Stripe unlock without restart",
+      "state": "todo"
+    },
+    {
+      "label": "RESULT.md final",
+      "state": "todo"
+    }
+  ],
+  "notes": "No PR until David reviews. Follow also https://fleet-phone.tail439e9f.ts.net/"
 }
