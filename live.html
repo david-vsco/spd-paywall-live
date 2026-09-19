@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta http-equiv="refresh" content="10"/>
+<title>Desktop M6 paywall — live</title>
+<style>
+:root { color-scheme: light; }
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  margin: 1.25rem;
+  background: #f6f3ee;
+  color: #14212b;
+  line-height: 1.45;
+}
+main { max-width: 720px; margin: 0 auto; }
+.card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1rem 1.15rem;
+  margin: 1rem 0;
+  box-shadow: 0 1px 2px rgba(0,0,0,.06);
+}
+.badge {
+  display: inline-block;
+  background: #e8e0d4;
+  border-radius: 999px;
+  padding: .15rem .55rem;
+  font-size: .75rem;
+  margin-right: .35rem;
+}
+.badge.live { background: #d8f0e0; }
+.warn { background: #fff6e8; border: 1px solid #f0d9a8; }
+table { width: 100%; border-collapse: collapse; }
+td, th { text-align: left; padding: .4rem; border-bottom: 1px solid #eee; vertical-align: top; }
+.muted { color: #5c6b76; font-size: .95rem; }
+.icon { width: 1.5rem; white-space: nowrap; }
+a { color: #0b5fff; word-break: break-all; }
+h1 { font-size: 1.35rem; margin: .5rem 0 0; }
+#error { color: #a33; display: none; }
+</style>
+</head>
+<body>
+<main>
+<p>
+  <span class="badge live">LIVE</span>
+  <span class="badge">refresh 10s</span>
+  <span class="badge" id="poll-mode">status.json</span>
+</p>
+<h1 id="title">Desktop M6 paywall — loading…</h1>
+
+<div class="card" id="now-card">
+  <strong>Now</strong>
+  <p id="doing_now">Loading status…</p>
+  <p class="muted"><strong>Next:</strong> <span id="next_up">—</span></p>
+  <p class="muted">Updated <code id="updated_at">—</code> · machine <code id="machine">—</code></p>
+</div>
+
+<div class="card" id="links-card">
+  <strong>Links</strong>
+  <p class="muted" id="agent_line">Agent: —</p>
+  <p class="muted" id="tickets_line">Tickets: —</p>
+  <p class="muted" id="branch_line" style="display:none">Branch: —</p>
+</div>
+
+<div class="card warn" id="notes-card" style="display:none">
+  <strong>Notes</strong>
+  <p id="notes"></p>
+</div>
+
+<div class="card">
+  <strong>Checklist</strong>
+  <table>
+    <tbody id="checklist"></tbody>
+  </table>
+</div>
+
+<p class="muted" id="error"></p>
+</main>
+<script>
+(function () {
+  var STATE_ICON = { done: "✅", doing: "🔄", todo: "⬜", blocked: "⛔", fail: "❌", skipped: "⏭️" };
+
+  function esc(s) {
+    return String(s == null ? "" : s)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  function render(s) {
+    document.title = (s.title || "Paywall live") + " — live";
+    document.getElementById("title").textContent = s.title || "Desktop M6 paywall";
+    document.getElementById("doing_now").textContent = s.doing_now || "—";
+    document.getElementById("next_up").textContent = s.next_up || "—";
+    document.getElementById("updated_at").textContent = s.updated_at || "—";
+    document.getElementById("machine").textContent = s.machine || "—";
+
+    var agent = document.getElementById("agent_line");
+    if (s.agent_url) {
+      agent.innerHTML = 'Agent: <a href="' + esc(s.agent_url) + '" rel="noopener">' + esc(s.agent_url) + "</a>";
+    } else {
+      agent.textContent = "Agent: —";
+    }
+
+    var tickets = s.tickets;
+    var ticketsEl = document.getElementById("tickets_line");
+    if (Array.isArray(tickets) && tickets.length) {
+      ticketsEl.textContent = "Tickets: " + tickets.join(", ");
+    } else if (typeof tickets === "string" && tickets) {
+      ticketsEl.textContent = "Tickets: " + tickets;
+    } else {
+      ticketsEl.textContent = "Tickets: —";
+    }
+
+    var branchEl = document.getElementById("branch_line");
+    if (s.branch) {
+      branchEl.style.display = "";
+      branchEl.textContent = "Branch: " + s.branch;
+    } else {
+      branchEl.style.display = "none";
+    }
+
+    var notesCard = document.getElementById("notes-card");
+    if (s.notes) {
+      notesCard.style.display = "";
+      document.getElementById("notes").textContent = s.notes;
+    } else {
+      notesCard.style.display = "none";
+    }
+
+    var tbody = document.getElementById("checklist");
+    tbody.innerHTML = "";
+    (s.checklist || []).forEach(function (item) {
+      var state = (item.state || "todo").toLowerCase();
+      var icon = STATE_ICON[state] || "⬜";
+      var tr = document.createElement("tr");
+      tr.innerHTML =
+        '<td class="icon">' + icon + "</td>" +
+        "<td>" + esc(item.label || item.id || "") + "</td>" +
+        "<td><code>" + esc(state) + "</code></td>";
+      tbody.appendChild(tr);
+    });
+
+    document.getElementById("error").style.display = "none";
+  }
+
+  function load() {
+    fetch("status.json?t=" + Date.now(), { cache: "no-store" })
+      .then(function (r) {
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        return r.json();
+      })
+      .then(render)
+      .catch(function (err) {
+        var el = document.getElementById("error");
+        el.style.display = "block";
+        el.textContent = "Could not load status.json: " + err.message;
+      });
+  }
+
+  load();
+  setInterval(load, 10000);
+})();
+</script>
+</body>
+</html>
