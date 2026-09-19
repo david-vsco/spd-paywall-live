@@ -1,8 +1,8 @@
 {
   "title": "SP Desktop paywall",
-  "doing_now": "Completing Stripe unlock + final RESULT",
-  "next_up": "David validation only",
-  "updated_at": "2026-09-19T19:08:13Z",
+  "doing_now": "VPS-45858 local E2E PASS \u2014 awaiting David validation",
+  "next_up": "Optional: Screen Recording for PNG shots",
+  "updated_at": "2026-09-19T19:52:08Z",
   "machine": "tart-vm worker",
   "agent_url": "https://cursor.com/agents/bc-f272e668-3218-5bd8-8733-a3d79e0f8327",
   "tickets": [
@@ -14,13 +14,17 @@
       "state": "done"
     },
     {
-      "label": "Stripe unlock without restart",
-      "state": "doing"
+      "label": "Stripe test purchase",
+      "state": "done"
     },
     {
-      "label": "Final RESULT + screenshots",
-      "state": "todo"
+      "label": "Unlock without restart",
+      "state": "done"
+    },
+    {
+      "label": "PNG screenshots",
+      "state": "blocked"
     }
   ],
-  "notes": "Public status only."
+  "notes": "Public status only. Product ACs PASS."
 }
