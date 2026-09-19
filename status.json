@@ -1,39 +1,14 @@
 {
-  "title": "Desktop M6 paywall \u2014 Tart E2E",
-  "doing_now": "Hard gate + Stripe unlock E2E (GB dev key)",
-  "next_up": "Rewrite RESULT.md PASS/FAIL",
-  "updated_at": "2026-09-19T17:31:40Z",
+  "title": "SP Desktop paywall",
+  "doing_now": "Uninterrupted 45858 E2E to final RESULT",
+  "next_up": "\u2014",
+  "updated_at": "2026-09-19T17:13:46Z",
   "machine": "david-mac-vm-spd / spd-ui-worker",
   "agent_url": "https://cursor.com/agents/bc-f272e668-3218-5bd8-8733-a3d79e0f8327",
   "branch": "cursor/desktop-m6-paywall-cc24",
   "tickets": [
     "VPS-45858"
   ],
-  "checklist": [
-    {
-      "label": "Build / deps / launch",
-      "state": "done"
-    },
-    {
-      "label": "Staging free sign-in (force-signout)",
-      "state": "done"
-    },
-    {
-      "label": "GB PAYWALL ON (dev key)",
-      "state": "done"
-    },
-    {
-      "label": "Hard gate sweep",
-      "state": "doing"
-    },
-    {
-      "label": "Stripe unlock without restart",
-      "state": "todo"
-    },
-    {
-      "label": "RESULT.md final",
-      "state": "todo"
-    }
-  ],
-  "notes": "No PR until David reviews. Follow also https://fleet-phone.tail439e9f.ts.net/"
+  "checklist": [],
+  "notes": "Heads-down: hard gate + Stripe unlock. Final report when RESULT.md rewritten. | Also: TEMP face retouch PoC [running] iPhone 8: Swift app installed \u2014 awaiting on-device open so Documents fill | Phone (thumbs): https://fleet-phone.tail439e9f.ts.net/"
 }
