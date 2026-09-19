@@ -1,35 +1,12 @@
 {
   "title": "SP Desktop paywall",
-  "doing_now": "Hard gate + Stripe unlock E2E",
-  "next_up": "Final RESULT.md",
-  "updated_at": "2026-09-19T17:34:18Z",
-  "machine": "tart-vm worker",
-  "agent_url": "https://cursor.com/agents/bc-f272e668-3218-5bd8-8733-a3d79e0f8327",
-  "branch": "cursor/desktop-m6-paywall-cc24",
+  "doing_now": "Uninterrupted 45858 E2E to final RESULT",
+  "next_up": "\u2014",
+  "updated_at": "2026-09-19T17:13:46Z",
+  "machine": "david-mac-vm-spd / spd-ui-worker",
   "tickets": [
     "VPS-45858"
   ],
-  "checklist": [
-    {
-      "label": "Build / launch / free sign-in",
-      "state": "done"
-    },
-    {
-      "label": "GB paywall flag on",
-      "state": "done"
-    },
-    {
-      "label": "Hard gate sweep",
-      "state": "doing"
-    },
-    {
-      "label": "Stripe unlock without restart",
-      "state": "todo"
-    },
-    {
-      "label": "RESULT.md final",
-      "state": "todo"
-    }
-  ],
-  "notes": "Public status only. No secrets."
+  "checklist": [],
+  "notes": "Also: TEMP face retouch PoC [running] | Sanitized public page \u2014 no Tailscale IPs / personal names / private links."
 }
